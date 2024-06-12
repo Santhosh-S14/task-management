@@ -20,7 +20,7 @@ export default function Home() {
     },
   ];
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-zinc-300 text-black">
+    <main className="bg-zinc-300 min-h-screen text-black">
       <Todos todos={todos} />
     </main>
   );
