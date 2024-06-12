@@ -18,7 +18,7 @@ export const todos = createTable(
     id: serial("id").primaryKey(),
     title: varchar("title", { length: 256 }).notNull(),
     description: varchar("description", { length: 1024 }).notNull(),
-    endDate: timestamp("endDate", { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
+    endDate: timestamp("endDate", { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
     completed: boolean("completed").notNull().default(false),
   },
 );
