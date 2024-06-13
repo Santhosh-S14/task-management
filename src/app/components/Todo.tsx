@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { CircleDotDashed, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { deleteTodo } from "@/db/queries";
+import Link from "next/link";
 
 interface Props {
   todo: TodoType;
@@ -31,9 +32,11 @@ export const Todo: FC<Props> = ({ todo }) => {
           <p className="text-xs">{`End date: ${todo.endDate}`}</p>
         </div>
         <div className="flex space-x-2 ml-auto">
-          <Button variant={"outline"}>
-            <Pencil size={20} />
-          </Button>
+          <Link href={`/editTodo/${todo.id}`}>
+            <Button variant={"outline"}>
+              <Pencil size={20} />
+            </Button>
+          </Link>
           <form
             action={async () => {
               await deleteTodo(todo.id);

@@ -33,3 +33,10 @@ export const deleteTodo = async (id: number) => {
     revalidatePath("/");
     redirect("/");
 }
+
+export const getTodoById = async (id: number) => {
+    const todo = await db.query.todos.findFirst({
+        where: eq(todos.id, id)
+    });
+    return todo;
+}
