@@ -16,6 +16,7 @@ export const addTodo = async (formData: FormData) => {
     const description = formData.get("desc") as string;
     const date = formData.get("date") as string;
     const newTodo: TodoType = {
+        id: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
         title: title,
         description: description,
         endDate: new Date(date),
@@ -26,9 +27,9 @@ export const addTodo = async (formData: FormData) => {
     redirect("/");
 }
 
-export const deleteTodo = async (title: string) => {
-    const titleToDelete = title;
-    await db.delete(todos).where(eq(todos.title, titleToDelete));
+export const deleteTodo = async (id: number) => {
+    const idToDelete = id;
+    await db.delete(todos).where(eq(todos.id, idToDelete));
     revalidatePath("/");
     redirect("/");
 }

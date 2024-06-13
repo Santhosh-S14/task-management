@@ -36,7 +36,7 @@ export const Todo: FC<Props> = ({ todo }) => {
           </Button>
           <form
             action={async () => {
-              await deleteTodo(todo.title);
+              await deleteTodo(todo.id);
             }}
           >
             <Button variant={"outline"}>

@@ -8,9 +8,10 @@ interface TodosProps {
 }
 
 export const Todos: FC<TodosProps> = ({ todos }) => {
+  const [todoItems, setTodoItems] = useState<TodoType[]>(todos);
   return (
     <div className="w-full flex flex-col mt-8 gap-2">
-      {todos.map((todo) => {
+      {todoItems.map((todo) => {
         return <Todo key={todo.title} todo={todo} />;
       })}
     </div>
