@@ -1,8 +1,8 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { TodoType } from "../types/todoType";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check, CircleDotDashed, Pencil, Trash2 } from "lucide-react";
+import { Check, Clock, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { deleteTodo, updateTodoCompleted } from "@/db/queries";
 import Link from "next/link";
@@ -13,10 +13,33 @@ interface Props {
 
 export const Todo: FC<Props> = ({ todo }) => {
   const [isChecked, setIsChecked] = useState(todo.completed);
+  const [endDateText, setEndDateText] = useState("");
   const handleisChecked = () => {
     setIsChecked(!isChecked);
     updateTodoCompleted(todo.id, !isChecked);
   };
+  useEffect(() => {
+    const calculateEndDateText = () => {
+      const endDate = new Date(todo.endDate);
+      const today = new Date();
+      const differenceInTime = endDate.getTime() - today.getTime();
+      const differenceInDays = Math.ceil(
+        differenceInTime / (1000 * 60 * 60 * 24)
+      );
+
+      if (differenceInDays === 0) {
+        setEndDateText("Today");
+      } else if (differenceInDays === 1) {
+        setEndDateText("Tomorrow");
+      } else if (differenceInDays > 1) {
+        setEndDateText(`${differenceInDays} days`);
+      } else {
+        setEndDateText(`Overdue by ${Math.abs(differenceInDays)} days`);
+      }
+    };
+
+    calculateEndDateText();
+  }, [todo.endDate]);
   return (
     <div className="flex items-top space-x-2 border border-gray-400 rounded-lg p-2">
       <Checkbox
@@ -24,18 +47,14 @@ export const Todo: FC<Props> = ({ todo }) => {
         checked={isChecked}
         onClick={handleisChecked}
         disabled={isChecked}
+        className="mt-1.5"
       />
       <div className="flex justify-between w-full">
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-3">
           <div className="flex space-x-2">
-            <label
-              htmlFor={todo.title}
-              className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {todo.title}
-            </label>
+            <h2 className="text-lg font-semibold">{todo.title}</h2>
             {isChecked ? (
-              <div className="flex space-x-2 items-center justify-center">
+              <div className="flex space-x-2 items-center">
                 <Check size={20} color="green" />
                 <p className="text-sm font-semibold text-green-600">
                   Completed
@@ -43,18 +62,29 @@ export const Todo: FC<Props> = ({ todo }) => {
               </div>
             ) : (
               <div className="flex space-x-2 items-center justify-center">
-                <CircleDotDashed size={20} color="red" />
-                <p className="text-sm font-semibold text-yellow-600">Pending</p>
+                <Clock size={20} color="red" />
+                <p className="text-sm font-semibold text-[#f29339]">Pending</p>
               </div>
             )}
           </div>
-          <p className="text-sm">{todo.description}</p>
-          <p className="text-xs">{`End date: ${todo.endDate}`}</p>
+          {todo.description && (
+            <p className="text-sm font-medium">{todo.description}</p>
+          )}
+          {isChecked ? (
+            ""
+          ) : endDateText.includes("Overdue") ? (
+            <p className="text-xs text-red-500 font-light">{`${endDateText}`}</p>
+          ) : (
+            <p className="text-xs font-light">{`Due: ${endDateText}`}</p>
+          )}
         </div>
         <div className="flex space-x-2 ml-auto">
           {!isChecked && (
             <Link href={`/editTodo/${todo.id}`}>
-              <Button variant={"outline"}>
+              <Button
+                variant={"outline"}
+                className="hover:bg-gray-200 transition duration-200"
+              >
                 <Pencil size={20} />
               </Button>
             </Link>
@@ -64,7 +94,10 @@ export const Todo: FC<Props> = ({ todo }) => {
               await deleteTodo(todo.id);
             }}
           >
-            <Button variant={"outline"}>
+            <Button
+              variant={"outline"}
+              className="hover:bg-gray-200 transition duration-200"
+            >
               <Trash2 size={20} color="red" />
             </Button>
           </form>

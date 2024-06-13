@@ -7,10 +7,10 @@ export default async function Home() {
   const todos = await getAllTodos();
   return (
     <main className="flex max-w-4xl mx-auto min-h-screen flex-col items-center p-16">
-      <h1 className="text-3xl font-medium">Todo List App</h1>
-      <div className="ml-auto">
+      <h1 className="text-3xl font-medium">Task Management App</h1>
+      <div className="ml-auto mt-2">
         <Link href={"/addTodo"}>
-          <Button>Add a Todo</Button>
+          <Button>Add a Task</Button>
         </Link>
       </div>
       <Todos todos={todos} />
