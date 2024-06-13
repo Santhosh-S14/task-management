@@ -46,3 +46,12 @@ export const updateTodo = async (todo: TodoType) => {
     revalidatePath("/");
     redirect("/");
 }
+
+export const updateTodoCompleted = async (id: number, completed: boolean) => {
+    const idToUpdate = id;
+    await db.update(todos).set({
+        completed: completed
+    }).where(eq(todos.id, idToUpdate));
+    revalidatePath("/");
+    redirect("/");
+}

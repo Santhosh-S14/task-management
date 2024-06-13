@@ -4,7 +4,7 @@ import { TodoType } from "../types/todoType";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check, CircleDotDashed, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { deleteTodo } from "@/db/queries";
+import { deleteTodo, updateTodoCompleted } from "@/db/queries";
 import Link from "next/link";
 
 interface Props {
@@ -12,9 +12,10 @@ interface Props {
 }
 
 export const Todo: FC<Props> = ({ todo }) => {
-  const [isChecked, setisChecked] = useState(todo.completed);
+  const [isChecked, setIsChecked] = useState(todo.completed);
   const handleisChecked = () => {
-    setisChecked(!isChecked);
+    setIsChecked(!isChecked);
+    updateTodoCompleted(todo.id, !isChecked);
   };
   return (
     <div className="flex items-top space-x-2 border border-gray-400 rounded-lg p-2">
