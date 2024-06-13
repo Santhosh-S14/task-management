@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { TodoType } from "../types/todoType";
 import { Todo } from "./Todo";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,26 @@ export const Todos: FC<TodosProps> = ({ todos }) => {
   const [todoItems, setTodoItems] = useState<TodoType[]>(todos);
   const [filteredTodos, setFilteredTodos] = useState<TodoType[]>(todos);
   const [searchText, setSearchText] = useState("");
+  const [sortOption, setSortOption] = useState("");
+  const handleSortOptionChange = (value: string) => {
+    setSortOption(value);
+  };
+  useEffect(() => {
+    let sortedArray = [...todos];
+    if (sortOption === "title") {
+      sortedArray.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortOption === "endDate") {
+      sortedArray.sort(
+        (a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime()
+      );
+    } else if (sortOption === "status") {
+      sortedArray.sort((a, b) =>
+        a.completed === b.completed ? 0 : a.completed ? 1 : -1
+      );
+    }
+    setTodoItems(sortedArray);
+    setFilteredTodos(sortedArray);
+  }, [sortOption, todos]);
   return (
     <div className="w-full flex flex-col mt-8 gap-2">
       <div className="flex flex-row justify-between mt-4 items-center w-full">
@@ -47,16 +67,17 @@ export const Todos: FC<TodosProps> = ({ todos }) => {
             />
           </div>
           <div>
-            <Select>
+            <Select value={sortOption} onValueChange={handleSortOptionChange}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Sort by</SelectLabel>
-                  <SelectItem value="apple">Title</SelectItem>
-                  <SelectItem value="apple">End date</SelectItem>
-                  <SelectItem value="apple">Status</SelectItem>
+                  <SelectItem value="empty"></SelectItem>
+                  <SelectItem value="title">Title</SelectItem>
+                  <SelectItem value="endDate">End date</SelectItem>
+                  <SelectItem value="status">Status</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

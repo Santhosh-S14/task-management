@@ -4,10 +4,12 @@ import { db } from "."
 import { todos } from "./schema";
 import { TodoType } from "@/app/types/todoType";
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export const getAllTodos = async () => {
-    const allTodos = await db.query.todos.findMany();
+    const allTodos = await db.query.todos.findMany({
+        orderBy:() => desc(todos.id)
+    });
     return allTodos;
 }
 
