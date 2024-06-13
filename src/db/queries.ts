@@ -4,6 +4,7 @@ import { db } from "."
 import { todos } from "./schema";
 import { TodoType } from "@/app/types/todoType";
 import { redirect } from "next/navigation";
+import { eq } from "drizzle-orm";
 
 export const getAllTodos = async () => {
     const allTodos = await db.query.todos.findMany();
@@ -21,6 +22,13 @@ export const addTodo = async (formData: FormData) => {
         completed: false,
     }
     await db.insert(todos).values(newTodo);
+    revalidatePath("/");
+    redirect("/");
+}
+
+export const deleteTodo = async (title: string) => {
+    const titleToDelete = title;
+    await db.delete(todos).where(eq(todos.title, titleToDelete));
     revalidatePath("/");
     redirect("/");
 }
