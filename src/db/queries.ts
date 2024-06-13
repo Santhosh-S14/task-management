@@ -40,3 +40,9 @@ export const getTodoById = async (id: number) => {
     });
     return todo;
 }
+
+export const updateTodo = async (todo: TodoType) => {
+    await db.update(todos).set(todo).where(eq(todos.id, todo.id));
+    revalidatePath("/");
+    redirect("/");
+}
