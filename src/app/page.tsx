@@ -1,28 +1,18 @@
-import { Todos } from "./components/Todos";
 import { getAllTodos } from "@/db/queries";
+import { Todos } from "./components/Todos";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Home() {
-  // Raw data (How would it look in the database)
-  // const todos: TodoType[] = [
-  //   {
-  //     id: 1,
-  //     title: "Do 30 minutes of yoga",
-  //     description:
-  //       "Yoga is a form of exercise that combines physical postures, breathing techniques, and meditation.",
-  //     endDate: new Date(),
-  //     completed: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Buy bread",
-  //     description: "",
-  //     endDate: new Date(),
-  //     completed: false,
-  //   },
-  // ];
   const todos = await getAllTodos();
   return (
-    <main className="bg-zinc-300 min-h-screen text-black">
+    <main className="flex max-w-4xl mx-auto min-h-screen flex-col items-center p-16">
+      <h1 className="text-3xl font-medium">Todo List App</h1>
+      <div className="ml-auto">
+        <Link href={"/addTodo"}>
+          <Button>Add a Todo</Button>
+        </Link>
+      </div>
       <Todos todos={todos} />
     </main>
   );
