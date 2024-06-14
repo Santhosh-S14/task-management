@@ -2,8 +2,6 @@
 import { FC, useEffect, useState } from "react";
 import { TodoType } from "../types/todoType";
 import { Todo } from "./Todo";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -44,6 +42,13 @@ export const Todos: FC<TodosProps> = ({ todos }) => {
     setTodoItems(sortedArray);
     setFilteredTodos(sortedArray);
   }, [sortOption, todos]);
+  if (filteredTodos.length === 0) {
+    return (
+      <div className="mt-8 text-base font-semibold border border-gray-400 rounded-lg p-2 ml-auto w-full text-center">
+        Add tasks to your list to see them here
+      </div>
+    );
+  }
   return (
     <div className="w-full flex flex-col mt-8 gap-2">
       <div className="flex flex-row justify-between mt-4 items-center w-full">
@@ -82,11 +87,6 @@ export const Todos: FC<TodosProps> = ({ todos }) => {
               </SelectContent>
             </Select>
           </div>
-        </div>
-        <div>
-          <Link href={"/addTodo"}>
-            <Button>Add a Task</Button>
-          </Link>
         </div>
       </div>
       {filteredTodos.map((todo) => {

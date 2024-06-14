@@ -1,12 +1,19 @@
 import { getAllTodos } from "@/db/queries";
 import { Todos } from "./components/Todos";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 async function GetTodos() {
   const todos = await getAllTodos();
   return (
     <>
-      <h1 className="text-3xl font-medium">Your tasks</h1>
+      <h1 className="text-4xl font-bold">Your tasks</h1>
+      <div className="mt-4 ml-auto">
+        <Link href={"/addTodo"}>
+          <Button>Add a Task</Button>
+        </Link>
+      </div>
       <Todos todos={todos} />
     </>
   );

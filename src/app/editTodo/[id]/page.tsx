@@ -87,7 +87,7 @@ export default function EditTodo({
                   id="desc"
                   placeholder="Description of your task"
                   type="text"
-                  name="desc"
+                  name="description"
                   value={formValues.description}
                   onChange={handleInputChange}
                 />
