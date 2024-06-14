@@ -62,8 +62,8 @@ Make a new `.env` file by copying everything from `.env.example`
 After a task is marked as completed I removed the edit button and also the end date text
 
 ## Limitations
-No Admin user
-No Unit tests
+1. No Admin user
+2. No Unit tests
 
 ## Code structure and design choice
 
