@@ -1,46 +1,83 @@
 # Task Management Application
 
-The application allows users to manage tasks with features such as creating, editing, deleting, and listing tasks, along with tasks user wise. 
+The application allows users to manage tasks with features such as creating, editing, deleting, and listing tasks, along with tasks user wise. Built with Next.js 14 App Router, TypeScript, React, Tailwind, PostgreSQL
+
+## Table of contents
+
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [.env files](#env-files)
+- [Features and TODOs](#features-and-todos)
+- [Frontend and UI](#frontend-and-ui)
+- [Database and ORMs](#database-and-orms)
+- [API and Server Actions](#api/server-actions)
+
+## Prerequisites
+
+(be sure to check for these)
+
+```
+Node.js v.18.3.17+=
+NextAuth.js v.5.0.0-beta.15+(which is the beta version)
+```
+
+everything else should be covered from just running `$ npm i`
+
+## Getting Started
+
+Clone the repository
+
+```base
+$ git clone https://github.com/Santhosh-S14/task-management.git
+```
+
+Make sure to run this command to install dependencies:
+
+```bash
+$ npm install
+```
+
+Then, run the development server:
+
+```bash
+$ npm run dev
+# or
+$ yarn dev
+# or
+$ pnpm dev
+# or
+$ bun dev
+```
+
+## Env files
+
+Open your `.env.example` file. It should look like this:
+
+```
+POSTGRES_URL=
+POSTGRES_PRISMA_URL=
+POSTGRES_URL_NO_SSL=
+POSTGRES_URL_NON_POOLING=
+POSTGRES_USER=
+POSTGRES_HOST=
+POSTGRES_PASSWORD=
+POSTGRES_DATABASE=
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+```
+
+Make a new `.env` file by copying everything from `.env.example`
 
 ## Features
-- [ ] Create Task
-- [ ] Delete Task
-- [ ] List Tasks
-- [ ] Edit task
-- [ ] User permission
-  - [ ] Owner: Can only manage their own tasks
-- [ ] Search functionality - Users can search for tasks by Title
-- [ ] Task Sorting - Allowed users to sort based on title, end date and status
-- [ ] Tasks with past due date - Once the task is past due date, the status changes to Overdue with red colored text and also shows the number of days the task has been in Overdue.
+- [x] Create Task
+- [x] Delete Task
+- [x] List Tasks
+- [x] Edit task
+- [x] User permission
+  - [x] Owner: Can only manage their own tasks
+- [x] Search functionality - Users can search for tasks by Title
+- [x] Task Sorting - Allowed users to sort based on title, end date and status
+- [x] Tasks with past due date - Once the task is past due date, the status changes to Overdue with red colored text and also shows the number of days the task has been in Overdue.
 
-## Instructions to set up and run the project locally
 
-1. Clone the repository: 
-```bash
-git clone (https://github.com/Santhosh-S14/task-management.git)
-cd task-management
-```
-2. Install dependencies
-```bash
-npm install --legacy-peer-deps
-```
-3. Run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-4. Assumptions
-     1. When a task is marked as completed,
-        1. Removed edit button
-        2. Not showing the end date value
-5. Limitations
-     1. No Admin user
-     2. No Unit tests
