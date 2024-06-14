@@ -2,16 +2,6 @@
 
 The application allows users to manage tasks with features such as creating, editing, deleting, and listing tasks, along with tasks user wise. Built with Next.js 14 App Router, TypeScript, React, Tailwind, Drizzle ORM, PostgreSQL
 
-## Table of contents
-
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [.env files](#env-files)
-- [Features and TODOs](#features-and-todos)
-- [Frontend and UI](#frontend-and-ui)
-- [Database and ORMs](#database-and-orms)
-- [API and Server Actions](#api/server-actions)
-
 ## Prerequisites
 
 (be sure to check for these)
