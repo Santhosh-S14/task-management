@@ -88,7 +88,7 @@ Just a React/Next.js + TypeScript, TailwindCSS, shadcn/ui application bootstrapp
 
 Data is very minimal right now on the DB.
 
-ORM of choice will be Drizzle, `$ npx drizzle-kit push` would be the usual workflow whenever you are changing the model inside `schema.prisma`.
+ORM of choice will be Drizzle, `$ npx drizzle-kit push` would be the usual workflow whenever you are changing the model inside `schema.ts`.
 
 If you want to see how the database is looking like, you can use `$ npx drizzle-kit studio`, it will boot up the studio at `[localhost:5555](https://local.drizzle.studio/)` and you can go and see the db.
 
