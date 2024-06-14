@@ -3,12 +3,12 @@
 The application allows users to manage tasks with features such as creating, editing, deleting, and listing tasks, along with tasks user wise. 
 
 ## Features
-[ ] Create Task
-[ ] Delete Task
-[ ] List Tasks
-[ ] Edit task
-[ ] User permission
-  [ ] Owner: Can only manage their own tasks
+- [ ] Create Task
+- [ ] Delete Task
+- [ ] List Tasks
+- [ ] Edit task
+- [ ] User permission
+  - [ ] Owner: Can only manage their own tasks
 
 ## Instructions to set up and run the project locally
 
