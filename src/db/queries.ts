@@ -4,25 +4,31 @@ import { db } from "."
 import { todos } from "./schema";
 import { TodoType } from "@/app/types/todoType";
 import { redirect } from "next/navigation";
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
+import { auth } from "@clerk/nextjs/server";
 
 export const getAllTodos = async () => {
+    const user = auth();
+    if (!user.userId) throw new Error('Unauthorized');
     const allTodos = await db.query.todos.findMany({
+        where: eq(todos.userId, user.userId),
         orderBy:() => desc(todos.id)
     });
     return allTodos;
 }
 
 export const addTodo = async (formData: FormData) => {
+    const user = auth();
     const title = formData.get("title") as string;
     const description = formData.get("desc") as string;
     const date = formData.get("date") as string;
-    const newTodo: TodoType = {
+    const newTodo = {
         id: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
         title: title,
         description: description,
         endDate: new Date(date),
         completed: false,
+        userId: user.userId,
     }
     await db.insert(todos).values(newTodo);
     revalidatePath("/");
@@ -30,16 +36,22 @@ export const addTodo = async (formData: FormData) => {
 }
 
 export const deleteTodo = async (id: number) => {
+    const user = auth();
+    if (!user.userId) throw new Error('Unauthorized');
     const idToDelete = id;
-    await db.delete(todos).where(eq(todos.id, idToDelete));
+    await db.delete(todos).where(and(eq(todos.id, idToDelete), eq(todos.userId, user.userId)));
     revalidatePath("/");
     redirect("/");
 }
 
 export const getTodoById = async (id: number) => {
+    const user = auth();
+    if (!user.userId) throw new Error('Unauthorized');
     const todo = await db.query.todos.findFirst({
         where: eq(todos.id, id)
     });
+    if(!todo) throw new Error('Image not found');
+    if(todo.userId !== user.userId) throw new Error('Unauthorized');
     return todo;
 }
 

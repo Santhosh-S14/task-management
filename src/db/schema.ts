@@ -20,5 +20,6 @@ export const todos = createTable(
     description: varchar("description", { length: 1024 }).notNull(),
     endDate: timestamp("endDate", { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
     completed: boolean("completed").notNull().default(false),
+    userId: varchar("userId", {length: 256}),
   },
 );
