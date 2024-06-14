@@ -37,11 +37,10 @@ bun dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-4. Assumptions or Limitations 
-  1. Assumptions
+4. Assumptions
      1. When a task is marked as completed,
         1. Removed edit button
         2. Not showing the end date value
-  2. Limitations
+5. Limitations
      1. No Admin user
      2. No Unit tests
